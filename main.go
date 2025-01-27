@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // Check if url is valid.
@@ -31,4 +32,17 @@ func TestUrl(uri string) *http.Response {
 	}
 	// Return full response to use further on.
 	return resp
+}
+
+// Parse string to url.
+func ParseToUrl(addr string) *url.URL {
+	// Check if provided string has the specified prefix. If not add prefix.
+	if !strings.HasPrefix(addr, "http") {
+		addr = "http://" + addr
+	}
+	toUrl, err := url.Parse(addr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return toUrl
 }
