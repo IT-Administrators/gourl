@@ -1,22 +1,37 @@
 package gourl
 
-import "testing"
+import (
+	"testing"
+)
 
-var urls = []string{"https://www.google.de"}
+// Valid urls to test connection and url validation separately.
+var validUrls = []string{"https://www.google.de", "https://www.heise.de"}
 
-func Test_isValid(t *testing.T) {
+// Unvalid urls to test the parsing of urls.
+var unvalUrls = []string{"www.google.de", "www.heise.de"}
 
-	for uri, err := range urls {
-		if IsValidUrl(urls[uri]) == false {
+func TestIsValidUrl(t *testing.T) {
+
+	for uri, err := range validUrls {
+		if IsValidUrl(validUrls[uri]) == false {
 			t.Errorf("Non valid url %s", err)
 		}
 	}
 }
 
-func Test_testUrl(t *testing.T) {
-	for uri, err := range urls {
-		if TestUrl(urls[uri]).StatusCode != 200 {
+func TestTestUrl(t *testing.T) {
+
+	for uri, err := range validUrls {
+		if TestUrl(validUrls[uri]).StatusCode != 200 {
 			t.Error(err)
 		}
+	}
+}
+
+func TestParseToUrl(t *testing.T) {
+	for uri, _ := range unvalUrls {
+		// Parse url if not in correct format.
+		// Than test connection.
+		TestUrl(ParseToUrl(unvalUrls[uri]).String())
 	}
 }

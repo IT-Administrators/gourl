@@ -37,8 +37,8 @@ func TestUrl(uri string) *http.Response {
 // Parse string to url.
 func ParseToUrl(addr string) *url.URL {
 	// Check if provided string has the specified prefix. If not add prefix.
-	if !strings.HasPrefix(addr, "http") {
-		addr = "http://" + addr
+	if !strings.HasPrefix(addr, "https") {
+		addr = "https://" + addr
 	}
 	toUrl, err := url.Parse(addr)
 	if err != nil {
