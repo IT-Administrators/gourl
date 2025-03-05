@@ -29,7 +29,7 @@ func TestTestUrl(t *testing.T) {
 }
 
 func TestParseToUrl(t *testing.T) {
-	for uri, _ := range unvalUrls {
+	for uri := range unvalUrls {
 		// Parse url if not in correct format.
 		// Than test connection.
 		TestUrl(ParseToUrl(unvalUrls[uri]).String())
